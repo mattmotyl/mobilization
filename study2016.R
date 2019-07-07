@@ -190,6 +190,7 @@ test1swcrep <- glm(didvote ~ PVI2016.scale.c * partyid.scale.rep + age.scale + g
 summary(test1swcrep)
 exp(summary(test1swcrep)$coefficients)
 exp(confint(test1swcrep))
+round(pR2(test1swc),3)
 
 # GG Plot
 #####
@@ -239,7 +240,7 @@ ggsave(file = "../plots/didvotePlot2016.png", plot=didvotescale.PVIAtPO.Plot2016
 
 #####
 ### Panel plots ###
-grid.arrange(didvotescale.PVIAtPO.Plot2016, verifiedvotescale.PVIAtPO.Plot, nrow = 1, ncol = 2)
+#grid.arrange(didvotescale.PVIAtPO.Plot2016, verifiedvotescale.PVIAtPO.Plot, nrow = 1, ncol = 2)
 #####
 
 
@@ -281,6 +282,7 @@ exp(summary(test2swc)$coefficients)
 round(pR2(test2swc),3)
 exp(confint(test2swc))
 
+
 # Simple slope follow ups
 dat1sub2$partyid.scale.dem <- dat1sub2$partyid.scale.c + .5
 dat1sub2$partyid.scale.rep <- dat1sub2$partyid.scale.c - .5
@@ -312,24 +314,30 @@ votevalscale.PVIAtPO.Eff$pomod<-factor(votevalscale.PVIAtPO.Eff$partyid.scale.c,
 votevalscale.PVIAtPO.Plot2016 <-ggplot(data = votevalscale.PVIAtPO.Eff, aes(x = PVI2016.scale.c, y =fit, group=pomod))+
   coord_cartesian(xlim=c(-.5, .5),ylim = c(0,1))+ 
   scale_x_continuous(breaks = c(-.5,-.4,.4,.5), labels = c("","Most Democratic","Most Republican",""))+
-  scale_y_continuous(breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
+  scale_y_continuous(expand = c(0, 0),breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
   geom_line(aes(color=pomod, linetype = pomod),size=1)+
   geom_ribbon(aes(ymin=lower, ymax=upper,fill=pomod),alpha=.2)+
   xlab("2016 Congressional District PVI")+
   ylab("Validated Vote Probability")+
-  scale_color_manual(values=c("blue", "red"))+
-  scale_fill_manual(values=c("blue", "red"))+
+  scale_color_manual(values=c("#3b5998", "#994c3c"))+
+  scale_fill_manual(values=c("#3b5998", "#994c3c"))+
   theme_bw()+
-  theme(text=element_text(family="", face="bold", size=14),
+  theme(text=element_text(family="Segoe", face="bold", size=32),
         axis.ticks.x = element_blank(),
+        axis.title.x=element_text(vjust=-1),
+        axis.text.x = element_text(vjust=-.2),
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.line = element_line(size = .5, colour = "grey0"),
         legend.title=element_blank(),
-        legend.position = c(.25, .27))
+        legend.position = c(.15, .1),
+        plot.margin=unit(c(1.1,1,1,1),"cm"))
 #####
 votevalscale.PVIAtPO.Plot2016
 #####
+
+#####
+ggsave(file = "../plots/validvotePlot2016.png", plot=votevalscale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
 
 #####
 ### Panel plots ###
