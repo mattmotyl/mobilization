@@ -193,6 +193,9 @@ exp(confint(test1swcrep))
 
 # GG Plot
 #####
+# set font for plots
+windowsFonts(`Segoe` = windowsFont("Segoe UI"))
+
 # Getting the effects for the partyid by PVI interaction at most Democratic and most Republican id
 # Specifying the full range of PVI
 didvotescale.PVIAtPO.fitted<-effect('PVI2016.scale.c*partyid.scale.c', test1swc,
@@ -209,24 +212,30 @@ didvotescale.PVIAtPO.Eff$pomod<-factor(didvotescale.PVIAtPO.Eff$partyid.scale.c,
 didvotescale.PVIAtPO.Plot2016 <-ggplot(data = didvotescale.PVIAtPO.Eff, aes(x = PVI2016.scale.c, y =fit, group=pomod))+
   coord_cartesian(xlim=c(-.5, .5),ylim = c(0,1))+ 
   scale_x_continuous(breaks = c(-.5,-.4,.4,.5), labels = c("","Most Democratic","Most Republican",""))+
-  scale_y_continuous(breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
+  scale_y_continuous(expand = c(0, 0),breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
   geom_line(aes(color=pomod, linetype = pomod),size=1)+
   geom_ribbon(aes(ymin=lower, ymax=upper,fill=pomod),alpha=.2)+
   xlab("2016 Congressional District PVI")+
   ylab("Vote Probability")+
-  scale_color_manual(values=c("blue", "red"))+
-  scale_fill_manual(values=c("blue", "red"))+
+  scale_color_manual(values=c("#3b5998", "#994c3c"))+
+  scale_fill_manual(values=c("#3b5998", "#994c3c"))+
   theme_bw()+
-  theme(text=element_text(family="", face="bold", size=14),
+  theme(text=element_text(family="Segoe", face="bold", size=32),
         axis.ticks.x = element_blank(),
+        axis.title.x=element_text(vjust=-1),
+        axis.text.x = element_text(vjust=-.2),
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.line = element_line(size = .5, colour = "grey0"),
         legend.title=element_blank(),
-        legend.position = c(.25, .27))
+        legend.position = c(.15, .1),
+        plot.margin=unit(c(1.1,1,1,1),"cm"))
 #####
 didvotescale.PVIAtPO.Plot2016
 #####
+ggsave(file = "../plots/didvotePlot2016.png", plot=didvotescale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
+
+
 
 #####
 ### Panel plots ###
