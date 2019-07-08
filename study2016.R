@@ -13,10 +13,10 @@ library(pscl)
 library(psychometric)
 
 # Set working directory (wherever the "anes_timeseries_2016_new_voteval_osf.csv" file is located)
-setwd("data/")
+setwd("")
 
 # Read in dataset
-dat1 <- read.csv("anes_timeseries_2016_new_voteval_osf.csv", header = T)
+dat1 <- read.csv("data/anes_timeseries_2016_new_voteval_osf.csv", header = T)
 
 
 ### DESIGNATE MISSING, RESCALE, AND RESTRUCTURE VARIABLES OF INTEREST ###
@@ -212,16 +212,16 @@ didvotescale.PVIAtPO.Eff$pomod<-factor(didvotescale.PVIAtPO.Eff$partyid.scale.c,
 # Plotting the figure
 didvotescale.PVIAtPO.Plot2016 <-ggplot(data = didvotescale.PVIAtPO.Eff, aes(x = PVI2016.scale.c, y =fit, group=pomod))+
   coord_cartesian(xlim=c(-.5, .5),ylim = c(0,1))+ 
-  scale_x_continuous(breaks = c(-.5,-.4,.4,.5), labels = c("","Most Democratic","Most Republican",""))+
+  scale_x_continuous(breaks = c(-.5,-.33,.33,.5), labels = c("","Most Democratic","Most Republican",""))+
   scale_y_continuous(expand = c(0, 0),breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
-  geom_line(aes(color=pomod, linetype = pomod),size=1)+
+  geom_line(aes(color=pomod, linetype = pomod),size=2)+
   geom_ribbon(aes(ymin=lower, ymax=upper,fill=pomod),alpha=.2)+
   xlab("2016 Congressional District PVI")+
   ylab("Vote Probability")+
   scale_color_manual(values=c("#3b5998", "#994c3c"))+
   scale_fill_manual(values=c("#3b5998", "#994c3c"))+
   theme_bw()+
-  theme(text=element_text(family="Segoe", face="bold", size=32),
+  theme(text=element_text(family="Segoe", face="bold", size=38),
         axis.ticks.x = element_blank(),
         axis.title.x=element_text(vjust=-1),
         axis.text.x = element_text(vjust=-.2),
@@ -229,12 +229,12 @@ didvotescale.PVIAtPO.Plot2016 <-ggplot(data = didvotescale.PVIAtPO.Eff, aes(x = 
         panel.grid.minor = element_blank(), 
         axis.line = element_line(size = .5, colour = "grey0"),
         legend.title=element_blank(),
-        legend.position = c(.15, .1),
+        legend.position = c(.83, .25),
         plot.margin=unit(c(1.1,1,1,1),"cm"))
 #####
 didvotescale.PVIAtPO.Plot2016
 #####
-ggsave(file = "../plots/didvotePlot2016.png", plot=didvotescale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
+ggsave(file = "plots/didvotePlot2016.png", plot=didvotescale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
 
 
 
@@ -313,16 +313,16 @@ votevalscale.PVIAtPO.Eff$pomod<-factor(votevalscale.PVIAtPO.Eff$partyid.scale.c,
 # Plotting the figure
 votevalscale.PVIAtPO.Plot2016 <-ggplot(data = votevalscale.PVIAtPO.Eff, aes(x = PVI2016.scale.c, y =fit, group=pomod))+
   coord_cartesian(xlim=c(-.5, .5),ylim = c(0,1))+ 
-  scale_x_continuous(breaks = c(-.5,-.4,.4,.5), labels = c("","Most Democratic","Most Republican",""))+
+  scale_x_continuous(breaks = c(-.5,-.33,.33,.5), labels = c("","Most Democratic","Most Republican",""))+
   scale_y_continuous(expand = c(0, 0),breaks = seq(from = 0, to = 1, by = .25), labels = c("0%","25%","50%","75%","100%"))+
-  geom_line(aes(color=pomod, linetype = pomod),size=1)+
+  geom_line(aes(color=pomod, linetype = pomod),size=2)+
   geom_ribbon(aes(ymin=lower, ymax=upper,fill=pomod),alpha=.2)+
   xlab("2016 Congressional District PVI")+
   ylab("Validated Vote Probability")+
   scale_color_manual(values=c("#3b5998", "#994c3c"))+
   scale_fill_manual(values=c("#3b5998", "#994c3c"))+
   theme_bw()+
-  theme(text=element_text(family="Segoe", face="bold", size=32),
+  theme(text=element_text(family="Segoe", face="bold", size=38),
         axis.ticks.x = element_blank(),
         axis.title.x=element_text(vjust=-1),
         axis.text.x = element_text(vjust=-.2),
@@ -330,14 +330,14 @@ votevalscale.PVIAtPO.Plot2016 <-ggplot(data = votevalscale.PVIAtPO.Eff, aes(x = 
         panel.grid.minor = element_blank(), 
         axis.line = element_line(size = .5, colour = "grey0"),
         legend.title=element_blank(),
-        legend.position = c(.15, .1),
+        legend.position = c(.83, .25),
         plot.margin=unit(c(1.1,1,1,1),"cm"))
 #####
 votevalscale.PVIAtPO.Plot2016
 #####
 
 #####
-ggsave(file = "../plots/validvotePlot2016.png", plot=votevalscale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
+ggsave(file = "plots/validvotePlot2016.png", plot=votevalscale.PVIAtPO.Plot2016,width = 11.95,height =12.58,dpi=300,units="in")
 
 #####
 ### Panel plots ###
