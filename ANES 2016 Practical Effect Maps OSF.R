@@ -234,5 +234,7 @@ totalcdstate.map <- arrangeGrob(arrangeGrob(cda.misfitdemobilization.map, cdh.mi
                             arrangeGrob(cd.misfitdemobilization.map, PredictedRedBlueMapCon, PredictedRedBlueMapLib, nrow = 3),
                             ncol = 2, widths = c(1, 4))
 
-
 ggsave(file = "plots/Fig3.tiff", totalcdstate.map, device = "tiff", dpi = 600, width = 8, height = 10, units = "in")
+
+
+

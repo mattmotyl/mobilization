@@ -112,6 +112,9 @@ dat1$post.votemakediff <- dat1$V162282
 is.na(dat1$V162281) <- dat1$V162281 == -9 | dat1$V162281 == -8 | dat1$V162281 == -7 | dat1$V162281 == -6
 dat1$post.powermakediff <- dat1$V162281
 
+#check to make sure vars correlate before combining
+cor(dat1$post.votemakediff,dat1$post.powermakediff,use="complete.obs",method = "spearman")
+cor(Dataset2[,c('V161005','V161006')],use="complete.obs",method = "pearson")
 
 ## DEMOCRATIC EFFICACY ##
 # Average of Vote and Power Efficacy variables
